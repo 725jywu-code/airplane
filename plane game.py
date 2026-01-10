@@ -81,4 +81,38 @@ class PlaneGame:
         self.preview_canvas.pack(expand=True, fill=tk.BOTH)
 
         self.ask_start_game()
+#第六段：遊戲開始 / 重置流程
+    def ask_start_game(self):
+        try:
+            num = simpledialog.askinteger(
+                "遊戲設定", "請輸入飛機數量 (2 或 3):",
+                minvalue=2, maxvalue=3, parent=self.root
+            )
+        except:
+            num = 2
+            
+        if num is None:
+            return
+        self.start_game(num)
+
+    def start_game(self, num_planes):
+        self.game_over = False
+        self.steps = 0
+        self.total_heads = num_planes
+        self.found_heads = 0
+        self.planes = []
+
+        self.lbl_steps.config(text="步數: 0")
+        self.update_head_label()
+        self.preview_canvas.delete("all")
+
+        for r in range(GRID_SIZE):
+            for c in range(GRID_SIZE):
+                self.grid_data[r][c] = None
+                self.buttons[r][c].config(
+                    bg=COLOR_DEFAULT, state=tk.NORMAL, text=""
+                )
+
+        self.place_planes(num_planes)
+        self.draw_plane_previews()
 
