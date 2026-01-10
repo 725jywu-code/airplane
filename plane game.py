@@ -47,3 +47,23 @@ class PlaneGame:
         )
         self.btn_restart.pack(side=tk.RIGHT, padx=20)
 
+        self.main_container = tk.Frame(root)
+        self.main_container.pack(side=tk.BOTTOM, expand=True, fill=tk.BOTH, padx=10, pady=10)
+
+        self.game_frame = tk.Frame(self.main_container)
+        self.game_frame.pack(side=tk.LEFT, padx=10)
+        
+        self._init_grid_ui()
+
+    def _init_grid_ui(self):
+        for r in range(GRID_SIZE):
+            for c in range(GRID_SIZE):
+                btn = tk.Button(
+                    self.game_frame,
+                    width=4, height=2,
+                    bg=COLOR_DEFAULT,
+                    command=lambda row=r, col=c: self.on_click(row, col)
+                )
+                btn.grid(row=r, column=c, padx=1, pady=1)
+                self.buttons[r][c] = btn
+
