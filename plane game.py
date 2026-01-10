@@ -28,7 +28,7 @@ class PlaneGame:
         self.found_heads = 0
         self.steps = 0
         self.game_over = False
-
+#第三段：上方資訊列 UI
                 # --- 介面佈局 ---
         self.top_frame = tk.Frame(root, pady=10)
         self.top_frame.pack(side=tk.TOP, fill=tk.X)
@@ -46,7 +46,7 @@ class PlaneGame:
             self.top_frame, text="重新開始", command=self.ask_start_game
         )
         self.btn_restart.pack(side=tk.RIGHT, padx=20)
-
+#第四段：主容器 + 遊戲盤 Grid
         self.main_container = tk.Frame(root)
         self.main_container.pack(side=tk.BOTTOM, expand=True, fill=tk.BOTH, padx=10, pady=10)
 
@@ -66,4 +66,19 @@ class PlaneGame:
                 )
                 btn.grid(row=r, column=c, padx=1, pady=1)
                 self.buttons[r][c] = btn
+#第五段：右側提示區（Canvas）
+        self.info_frame = tk.Frame(self.main_container, width=200)
+        self.info_frame.pack(side=tk.RIGHT, fill=tk.Y, padx=10)
+
+        self.lbl_info_title = tk.Label(
+            self.info_frame, text="本局敵機情報", font=("Arial", 11, "bold")
+        )
+        self.lbl_info_title.pack(pady=5)
+        
+        self.preview_canvas = tk.Canvas(
+            self.info_frame, width=150, height=400, bg="#F0F0F0"
+        )
+        self.preview_canvas.pack(expand=True, fill=tk.BOTH)
+
+        self.ask_start_game()
 
